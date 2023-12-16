@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title%}
+{{post.title}}
+{% endblock %}
+{% block content%}
+<div class="container">
+    <div class="border-dashed">
+    <h2 class="text-center">{{post.title}}</h2>
+    <img src="{{post.image.url}}" alt="" class="post-image">
+    <p>
+        {{post.text}}
+    </p>
+    <p class="text-end">{{post.date|date:'d-F-Y'}}</p>
+    <p class="text-end">Коментариев: {{post.comment_set.count}} Просмотров: {{post.view}}</p> 
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'comment' post.slug %}" method="POST">
+        {% csrf_token %}
+        <textarea name="text" id="" cols="30" rows="10"></textarea> 
+        <button>Отправить</button>
+    </form>
+    {% else %}
+    <p>
+        Что бы написать коментарий вы должны 
+        <a href="{% url 'login_site' %}">Войти</a>
+         или 
+         <a href="{% url 'register' %}">Зарегистрироваться</a>
+        </p>
+    {% endif %}
+    <div class="row row-cols-1 row-cols-md-1 g-4">
+        {% for comment in post.comment_set.all %}
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{comment.author.username}}</h5>
+              <p class="card-text">{{comment.text}}</p>
+              <p class="card-text">{{comment.date|date:'d-F-Y'}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+</div>
+{% endblock %}
+ 

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+Регистрация
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    
+    <div class="offset-md-4 col-md-4 offset-sm-3 col-sm-6">
+    <div class="form-container">
+    <h3 class="title">Регистрация</h3>
+
+    <form action="{% url 'register' %}" method="POST" class="form-horizontal">
+        {% csrf_token %}
+        {% for f in form %}
+    <div class="form-group">
+        {{f}}
+    </div>
+    {% endfor %}    
+    <a href=""> <button class="btn signup"> Зарегистрироваться </button> </a>
+    
+    </form>
+    </div>
+    </div>
+   
+    </div>
+{% endblock%}

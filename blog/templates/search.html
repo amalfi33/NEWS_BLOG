@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+Главная страница
+{% endblock %}
+{% block content %}
+<div class="container">
+  <h1 class="line">Новости</h1>
+   <div class="row row-cols-1 mt-3 row-cols-md-5 g-3">
+      {% for post in posts %}
+      <div class="col" >
+        <div class="card" style="min-height: 650px; border-radius: 25px;">
+          <a href="{{post.get_link}}">
+          <img src="{{post.image.url}}" style="border-radius: 25px; height: 300px; object-fit: cover;" class="card-img-top" alt="...">
+        </a>
+          <div class="card-body">
+            <h5 class="card-title"><a href="{{post.get_link}}">{{post.title}}</a></h5>
+            <p class="card-text"><a href="{{post.get_link}}">{{post.text|slice:'0:200'}}...</a></p>
+            <p class="text-end">{{post.date|date:'d-F-Y'}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endblock %}
