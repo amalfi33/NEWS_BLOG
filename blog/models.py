@@ -38,14 +38,13 @@ class Post(models.Model):
     image = models.ImageField('Картинка поста', upload_to="post_image/")
     date = models.DateTimeField('Дата создания поста', default=timezone.now)
     slug = models.SlugField('Ссылка', unique=True)
-    view = models.IntegerField('Проссмотры', default = 0)
-    
+    view = models.IntegerField('Проссмотры', default =
     def __str__(self):
         return self.title
 
     def get_link(self):
         return reverse('post_detail_url', kwargs={'slug': self.slug})
-    
+  
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
